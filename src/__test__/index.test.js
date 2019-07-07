@@ -26,7 +26,7 @@ describe('Expressio JWT', () => {
     const server = { events: { on }, ...config() }
     jwt(server)
 
-    expect(Object.keys(server.jwt)).toEqual(['sign', 'setup'])
+    expect(Object.keys(server.jwt)).toEqual(['sign', 'setup', 'verify'])
     expect(on).toHaveBeenCalledTimes(1)
   })
 
@@ -36,6 +36,12 @@ describe('Expressio JWT', () => {
 
     expect(server.jwt).toBeFalsy()
     expect(on).toHaveBeenCalledTimes(0)
+  })
+
+  it('given no "secret" config, it should throw an error with proper message', () => {
+    const server = { events: { on }, ...config({ secret: undefined }) }
+    const fn = () => jwt(server)
+    expect(fn).toThrow('Invalid JWT config: "secret" must be a string')
   })
 })
 

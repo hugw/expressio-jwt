@@ -1,3 +1,7 @@
 export default {
-  default: {},
+  default: {
+    jwt: {
+      secret: '123',
+    },
+  },
 }

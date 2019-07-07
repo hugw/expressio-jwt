@@ -62,6 +62,12 @@ export default (server) => {
   const sign = (data, opts) => jwt.sign({ data }, secret, { expiresIn, ...opts, algorithm })
 
   /**
+   * Verify if provided JWT
+   * has a valid signature
+   */
+  const verify = (token, opts) => jwt.verify(token, secret, opts)
+
+  /**
    * Format JWT authorization errors
    */
   const errorHandler = (err, req, res, next) => {
@@ -81,7 +87,7 @@ export default (server) => {
   }
 
   // Expose JWT Api to the server object
-  server.jwt = { sign, setup }
+  server.jwt = { sign, setup, verify }
 
   // Register error handler
   server.events.on('beforeStart', srv => srv.use(errorHandler))
