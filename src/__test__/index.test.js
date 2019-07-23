@@ -26,7 +26,7 @@ describe('Expressio JWT', () => {
     const server = { events: { on }, ...config() }
     jwt(server)
 
-    expect(Object.keys(server.jwt)).toEqual(['sign', 'setup', 'verify'])
+    expect(Object.keys(server.jwt)).toEqual(['sign', 'setup', 'verify', 'raw'])
     expect(on).toHaveBeenCalledTimes(1)
   })
 

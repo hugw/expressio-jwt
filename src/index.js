@@ -10,7 +10,7 @@
  */
 
 import ejwt from 'express-jwt'
-import Joi from 'joi'
+import Joi from '@hapi/joi'
 import jwt from 'jsonwebtoken'
 import ndtk from 'ndtk'
 import { sanitize } from 'expressio'
@@ -87,7 +87,12 @@ export default (server) => {
   }
 
   // Expose JWT Api to the server object
-  server.jwt = { sign, setup, verify }
+  server.jwt = {
+    sign,
+    setup,
+    verify,
+    raw: jwt,
+  }
 
   // Register error handler
   server.events.on('beforeStart', srv => srv.use(errorHandler))
